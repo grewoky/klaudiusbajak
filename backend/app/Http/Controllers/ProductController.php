@@ -19,10 +19,10 @@ class ProductController extends Controller
     {
         // Validate the incoming request data
         $validated = $request->validate([
-            'Nama_Produk' => 'required|string|max:255',
+            'nama_produk' => 'required|string|max:255',
             'category' => 'required|string|max:255',
-            'Harga' => 'required|numeric',
-            'Image_Path' => 'nullable|string',
+            'harga' => 'required|numeric',
+            'image_path' => 'nullable|string',
         ]);
 
         // Create and store the product
@@ -30,5 +30,25 @@ class ProductController extends Controller
 
         // Return the created product as a JSON response
         return response()->json($product, 201);
+    }
+
+    public function addProduct()
+    {
+        // Data to be added
+        $productData = [
+            'nama_produk' => 'Product Name',
+            'category' => 'Category Name',
+            'harga' => 19.99,
+            'image_path' => 'path/to/image.jpg', // Can be null if no image
+        ];
+
+        // Create a new product using the data
+        $product = Product::create($productData);
+
+        // Return a response or view
+        return response()->json([
+            'message' => 'Product added successfully!',
+            'product' => $product
+        ]);
     }
 }
